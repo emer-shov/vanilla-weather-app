@@ -36,13 +36,6 @@ function displayForecast(response){
 }
 
 
-
-
-
-
-
-
-
 function displayTemperature(response) {
     
   console.log(response.data.condition.description);
@@ -53,7 +46,7 @@ function displayTemperature(response) {
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
-  let dateElement = document.querySelector("date");
+  let dateElement = document.querySelector("#date");
   let iconElement=document.querySelector("#icon");
 
   celciusTemperature= response.data.temperature.current;
@@ -66,9 +59,9 @@ function displayTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.time *1000);
   iconElement.setAttribute(
     "src",
-    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.daily.condition.icon_url}few-clouds-day.png`
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon_url}few-clouds-day.png`
      );
-iconElement.setAttribute("alt", response.data.condition.description);
+iconElement.setAttribute("src", response.data.condition.icon_url);
   }
 
 
@@ -88,10 +81,10 @@ axios.get(apiUrl).then(displayTemperature);
 
 function displayFahrenheitTemperature(event){
     event.preventDefault();
-    let fahrenheitTemperature=(celciusTemperature * 9/5) + 32 = 32;
+    let fahrenheitTemperature=(celciusTemperature * 9/5) + 32;
     celciusLink.classList.remove("active");
     fahrenheitLink.classList.add("active");
-    let temperatureElement=document.querySelector("temperature");
+    let temperatureElement=document.querySelector("#temperature");
     temperatureElement.innerHTML=Math.round(fahrenheitTemperature);
 }
 
@@ -105,15 +98,14 @@ function displayCelciusTemperature (event){
 
 let celciusTemperature=null;
 
-let form=document.querySelector("search-form");
+let form=document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
-let fahrenheitLink= document.querySelector("fahrenheit-link");
+let fahrenheitLink= document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click",displayFahrenheitTemperature);
 
-let celciusLink= document.querySelector("celcius-link");
+let celciusLink= document.querySelector("#celcius-link");
 celciusLink.addEventListener("click",displayCelciusTemperature);
-
 
 
 search("New York");
