@@ -70,11 +70,23 @@ iconElement.setAttribute("alt", response.data.condition.description);
   }
 
 
-let apiKey = "2f431f06a6ad2abab0d3o47daa186t7f";
-let city="Lisbon";
+function search(city){
+    let apiKey = "2f431f06a6ad2abab0d3o47daa186t7f";
 let apiUrl =
   "https://api.shecodes.io/weather/v1/current?lat=38.71667&lon=-9.13333&key=2f431f06a6ad2abab0d3o47daa186t7f&units=metric";
-
-console.log(apiUrl);
-
 axios.get(apiUrl).then(displayTemperature);
+}
+
+
+  function handleSubmit(event){
+    event.preventDefault();
+    let cityInputElement= document.querySelector("#city-input");
+    search(cityInputElement.value);
+  }
+
+search("New York");
+
+
+
+let form=document.querySelector("search-form");
+form.addEventListener("submit", handleSubmit);
